@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/xeb/gload.svg?branch=master)](https://travis-ci.org/xeb/gload)
+
 # gload
 Golang Load Testing.  Closely named after my favorite Producer.
 
