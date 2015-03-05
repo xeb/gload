@@ -1,5 +1,16 @@
 #!/bin/sh
 
+go get -a github.com/google/protobuf
+cd $GOPATH
+cd src/github.com/google/protobuf
+./autogen.sh
+./configure
+make 
+make check
+make install
+go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+cd $GOPATH/src/github.com/xeb/gload
+
 cd src/
 mkdir -p time
 mkdir -p httpio
