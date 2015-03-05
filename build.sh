@@ -1,7 +1,7 @@
 #!/bin/sh
 
 go get -a github.com/google/protobuf
-cd $GOPATH/src/github.com/google/protobuf
+cd /home/travis/gopath/src/github.com/google/protobuf
 ./autogen.sh
 ./configure
 make 
