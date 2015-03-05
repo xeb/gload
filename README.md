@@ -1,2 +1,2 @@
-# gloud
+# gload
 Golang Load Testing
