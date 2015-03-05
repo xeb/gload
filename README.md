@@ -1,11 +1,10 @@
 # gload
 Golang Load Testing.  Closely named after my favorite Producer.
 
-# Basic Terminology and Design
+# Two Binaries
 * ***Harness*** The main client orchestrating all of the remote agents, sending commands and processing results
-* ***Handlers***  Remote agents that process specific commands.  
-* ***Commands*** Simple remote operations that agents perform, could be anything you'd like
-* ***Results*** Any data returned from a Command
+* ***Agent***  The remote process that listens on an available machine port & registers itself with a discovery service.  Just uses gRPC to invoke functionality.  In this case the Agent is the service implementation and the Harness is the client.
+
 
 # Ideal Workflow
 
