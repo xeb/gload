@@ -1,0 +1,9 @@
+language: go
+go: 1.3
+
+install:
+ - echo "Skip install"
+
+script:
+ - ./build.sh
+ - ./run.sh
