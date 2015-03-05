@@ -1,2 +1,2 @@
 # gload
-Golang Load Testing
+Golang Load Testing.  Closely named after my favorite Producer.
