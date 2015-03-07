@@ -7,6 +7,6 @@ Golang-based Load Testing.
 
 # Three Binaries
 * ***Boss*** The REPL client for sending commands to remote agents via the coordinator
-* ***Broker*** The broker that should be publically accessible to all agents.  Responsible for cluster management.
-* ***Agent***  The remote process that connects to the broker, receives commands, executes them & returns results.  All stdin, stdout, stderr.
+* ***Proxy*** The proxy that should be publically accessible to all agents and the boss.  Responsible for "cluster" management and proxy'ing commands.
+* ***Agent***  The remote process that connects to the proxy, receives commands, executes them & returns results.  All stdin, stdout, stderr.
 
