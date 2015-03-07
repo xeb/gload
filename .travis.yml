@@ -2,5 +2,4 @@ language: go
 
 
 script:
-  - go build -v -o=../bin/proxy src/proxy/main.go
-  - go build -v -o=../bin/boss src/boss/main.go
+  - ./build.sh
