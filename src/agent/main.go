@@ -4,8 +4,8 @@ import (
 	agent "github.com/xeb/gload/src/agent"
 )
 
-const discovery string = "http://localhost:4001/v2/keys/"
+const defproxy string = "ipc://gload.proxy"
 
 func main() {
-	agent.Bind(10000)
+	agent.Bind(defproxy)
 }
