@@ -4,7 +4,9 @@
 # install protoc if necessary
 hash protoc &> /dev/null
 if [ $? -eq 1 ]; then
+	echo Getting protobuf
 	go get -a github.com/google/protobuf
+	pwd
 	cd /home/travis/gopath/src/github.com/google/protobuf
 	./autogen.sh
 	./configure --prefix=/usr
@@ -23,4 +25,4 @@ mkdir -p httpio
 
 protoc -I ./protos ./protos/time.proto --go_out=plugins=grpc:time
 protoc -I ./protos ./protos/httpio.proto --go_out=plugins=grpc:httpio
-go build -o=../bin/agent agent/main.go
+go build -o=../bin/gloada agent/main.go
