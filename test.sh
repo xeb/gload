@@ -1,9 +1,6 @@
 #!/bin/sh
-killall proxy
-killall boss
-
-go build -o=./bin/proxy src/proxy/main.go
-go build -o=./bin/boss src/boss/main.go
-
+./build.sh
 bin/proxy &
 bin/boss
+for i in {1..5}; do bin/agent; done
+killall proxy

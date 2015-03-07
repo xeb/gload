@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	zmq "github.com/pebbe/zmq4"
-	"time"
 )
 
 const defbossadd string = "tcp://localhost:10000"
@@ -14,9 +13,9 @@ func ProxySend(address string) {
 
 	proxysoc.Connect(address)
 
-	_, _ = proxysoc.Send("HELLO!", 0)
+	_, _ = proxysoc.Send("PING", 0)
 
-	fmt.Println("[BOSS] Sent Hello.  Waiting for response")
+	fmt.Println("[BOSS] Sent PING.  Waiting for response")
 	r, _ := proxysoc.Recv(0)
 	fmt.Printf("[BOSS] Received %s\n", r)
 }
