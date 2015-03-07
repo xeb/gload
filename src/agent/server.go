@@ -1,4 +1,4 @@
-package main
+package agent
 
 import (
 	"fmt"
@@ -11,23 +11,19 @@ import (
 	"time"
 )
 
-var (
-	sport = 50000
-)
-
 type server struct{}
 
 func (s *server) GetTime(ctx context.Context, in *stime.TimeRequest) (*stime.TimeReply, error) {
 	return &stime.TimeReply{TimeValue: time.Now().UnixNano()}, nil
 }
 
-func bind(port int) {
+func Bind(port int) {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		etxt := err.Error()
 		if strings.Contains(etxt, "address already in use") || strings.Contains(etxt, "permission denied") {
 			fmt.Printf("Attempting to rebind on %d\n", port+1)
-			bind(port + 1)
+			Bind(port + 1)
 		} else {
 			log.Fatalf("failed to listen: %v", err)
 		}
@@ -41,8 +37,4 @@ func bind(port int) {
 
 	// Bind Other commands
 
-}
-
-func main() {
-	bind(sport)
 }

@@ -1,7 +1,7 @@
 language: go
 
 install:
-	- go get -v -t -d github.com/golang/protobuf
+  - go get -v -t -d github.com/golang/protobuf
 
 script:
-	- go build -v -t -o=../bin/gload src/agent/main.go
+  - go build -v -t -o=../bin/gload src/agent/main.go
