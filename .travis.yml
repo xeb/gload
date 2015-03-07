@@ -1,4 +1,4 @@
 language: go
 
 script:
-	- go build src/main.go
+	- go build -o=../bin/gload src/agent/main.go
