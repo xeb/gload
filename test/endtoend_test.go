@@ -16,10 +16,10 @@ func TestEndToEnd(t *testing.T) {
 	proxy.BindAgent(agentadd)
 
 	t.Log("Proxy is Binding Boss")
-	proxy.BindBoss(bossadd)
+	go proxy.BindBoss(bossadd)
 
 	t.Log("Agent is Subscribing")
-	agent.Subscribe(agentadd)
+	go agent.Subscribe(agentadd)
 
 	t.Log("Boss is Connecting")
 	boss.Connect(bossadd)
@@ -27,6 +27,7 @@ func TestEndToEnd(t *testing.T) {
 	t.Log("Boss is Sending Command")
 	boss.SendCommand("TEST")
 
-	t.Log("Closing Agent")
+	t.Log("Closing Agent and Boss")
 	agent.Close()
+	boss.Close()
 }

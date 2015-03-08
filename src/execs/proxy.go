@@ -11,12 +11,6 @@ const defagentadd string = "tcp://*:20000"
 func main() {
 
 	fmt.Printf("[PROXY] Listening for Agents at '%s'\n", defagentadd)
-	proxy.BindAgent(defagentadd)
-
 	fmt.Printf("[PROXY] Listening for Boss at '%s'\n", defbossadd)
-	proxy.BindBoss(defbossadd)
-
-	for {
-
-	}
+	proxy.Bind(defagentadd, defbossadd)
 }

@@ -6,13 +6,17 @@ import (
 )
 
 var asock *zmq.Socket
+var bsock *zmq.Socket
 
-func BindBoss(address string) {
+func Bind(agentadd string, bossadd string) {
+	asock, _ = zmq.NewSocket(zmq.PUB)
+	asock.Bind(agentadd)
+
 	bsock, _ := zmq.NewSocket(zmq.REP)
-	defer bsock.Close()
-	bsock.Bind(address)
+	bsock.Bind(bossadd)
 
 	for {
+		fmt.Printf("[PROXY-boss] Receiving...\n")
 		msg, _ := bsock.Recv(0)
 		fmt.Printf("[PROXY-boss] Received: %s\n", msg)
 
@@ -22,10 +26,6 @@ func BindBoss(address string) {
 
 		_, _ = bsock.Send("PONG", 0)
 		fmt.Println("[PROXY-boss] Sent PONG")
-	}
-}
 
-func BindAgent(address string) {
-	asock, _ = zmq.NewSocket(zmq.PUB)
-	asock.Bind(address)
+	}
 }

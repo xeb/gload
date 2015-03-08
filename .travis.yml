@@ -15,4 +15,4 @@ before_install:
  - cd ..
 
 script:
-  - ./test.sh
+  - ./build.sh
