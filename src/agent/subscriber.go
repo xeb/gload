@@ -18,12 +18,16 @@ func Subscribe(address string) {
 	fmt.Println("[AGENT] Connected")
 
 	for subscribed {
+
+		fmt.Println("[AGENT] Receiving")
 		r, _ := proxysoc.Recv(0)
 		fmt.Printf("[AGENT] Received %s\n", r)
 		// _, _ = proxysoc.Send("STDOUT", 0)
 
 		// fmt.Println("[AGENT] Sent PING.  Waiting for response")
 	}
+
+	fmt.Println("[AGENT] Unsubscribing")
 }
 
 func Close() {
