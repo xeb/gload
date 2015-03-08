@@ -12,6 +12,10 @@ func Connect(address string) {
 	proxysoc.Connect(address)
 }
 
+func Close() {
+	proxysoc.Close()
+}
+
 func SendCommand(command string) {
 	_, _ = proxysoc.Send(command, 0)
 

@@ -6,13 +6,12 @@ import (
 	"sync"
 )
 
-const defbossadd string = "tcp://*:10000"
+const defbossadd string = "tcp://*:11000"
 const defagentadd string = "tcp://*:20000"
 
 var servers chan int = make(chan int)
-var asock *zmq.Socket
 
-func BindBoss(address string) {
+func BossBind(address string) {
 	bsock, _ := zmq.NewSocket(zmq.REP)
 	defer bsock.Close()
 	bsock.Bind(address)
@@ -20,34 +19,39 @@ func BindBoss(address string) {
 	for {
 		msg, _ := bsock.Recv(0)
 		fmt.Printf("[PROXY-boss] Received: %s\n", msg)
-
-		// Send to Agent Socket
-		_, _ = asock.Send(msg, 0)
-		fmt.Printf("[PROXY-agent] Dispatched: %s\n", msg)
-
-		_, _ = bsock.Send("PONG", 0)
-		fmt.Println("[PROXY-boss] Sent PONG")
+		v, _ := bsock.Send("PONG", 0)
+		fmt.Printf("[PROXY-boss] Sent Pong %s\n", v)
 	}
 
 	servers <- 1
 }
 
-func BindAgent(address string) {
-	fmt.Printf("[PROXY] Listening for Agents at '%s'\n", address)
-	asock, _ = zmq.NewSocket(zmq.PUB)
+func AgentBind(address string) {
+	asock, _ := zmq.NewSocket(zmq.REP)
+	defer asock.Close()
 	asock.Bind(address)
+
+	for {
+		msg, _ := asock.Recv(0)
+		fmt.Printf("[PROXY-agent] Received: %s\n", msg)
+		v, _ := asock.Send("PONG", 0)
+		fmt.Printf("[PROXY-agent] Sent Pong %s\n", v)
+	}
+
+	servers <- 2
 }
 
 func main() {
 
 	var wg sync.WaitGroup
 
-	wg.Add(1)
-
-	BindAgent(defagentadd)
+	wg.Add(2)
 
 	fmt.Printf("[PROXY] Listening for Boss at '%s'\n", defbossadd)
 	go BossBind(defbossadd)
+
+	fmt.Printf("[PROXY] Listening for Agents at '%s'\n", defagentadd)
+	go AgentBind(defagentadd)
 
 	wg.Wait()
 }
