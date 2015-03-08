@@ -9,8 +9,6 @@ var proxysoc *zmq.Socket
 
 func Connect(address string) {
 	proxysoc, _ = zmq.NewSocket(zmq.REQ)
-	// defer proxysoc.Close()
-
 	proxysoc.Connect(address)
 }
 
