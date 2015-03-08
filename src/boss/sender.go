@@ -17,6 +17,7 @@ func Close() {
 }
 
 func SendCommand(command string) {
+	fmt.Printf("[BOSS] Sending %s.\n", command)
 	_, _ = proxysoc.Send(command, 0)
 
 	fmt.Printf("[BOSS] Sent %s.  Waiting for response\n", command)
