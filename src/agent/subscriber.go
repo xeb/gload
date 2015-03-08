@@ -1,13 +1,11 @@
-package main
+package agent
 
 import (
 	"fmt"
 	zmq "github.com/pebbe/zmq4"
 )
 
-const defagentadd string = "tcp://localhost:20000"
-
-func ProxySend(address string) {
+func Subscribe(address string) {
 	proxysoc, _ := zmq.NewSocket(zmq.SUB)
 	defer proxysoc.Close()
 
@@ -23,9 +21,4 @@ func ProxySend(address string) {
 
 		// fmt.Println("[AGENT] Sent PING.  Waiting for response")
 	}
-}
-
-func main() {
-	fmt.Printf("[AGENT] Connecting to Proxy at '%s'\n", defagentadd)
-	ProxySend(defagentadd)
 }
