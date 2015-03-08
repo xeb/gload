@@ -8,16 +8,21 @@ import (
 const defagentadd string = "tcp://localhost:20000"
 
 func ProxySend(address string) {
-	proxysoc, _ := zmq.NewSocket(zmq.REQ)
+	proxysoc, _ := zmq.NewSocket(zmq.SUB)
 	defer proxysoc.Close()
 
 	proxysoc.Connect(address)
+	proxysoc.SetSubscribe("")
 
-	_, _ = proxysoc.Send("PING", 0)
+	fmt.Println("[AGENT] Connected")
 
-	fmt.Println("[AGENT] Sent PING.  Waiting for response")
-	r, _ := proxysoc.Recv(0)
-	fmt.Printf("[AGENT] Received %s\n", r)
+	for {
+		r, _ := proxysoc.Recv(0)
+		fmt.Printf("[AGENT] Received %s\n", r)
+		// _, _ = proxysoc.Send("STDOUT", 0)
+
+		// fmt.Println("[AGENT] Sent PING.  Waiting for response")
+	}
 }
 
 func main() {
