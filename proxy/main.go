@@ -26,16 +26,18 @@ func Bind(agentadd string, bossadd string) {
         bsock.Bind(bossadd)
 
         for {
+		// Wait for a command from BOSS
                 fmt.Printf("[PROXY-boss] Receiving...\n")
                 msg, _ := bsock.Recv(0)
                 fmt.Printf("[PROXY-boss] Received: %s\n", msg)
 
-                // Send to Agent Socket
+                // Send to Agents 
                 _, _ = asock.Send(msg, 0)
                 fmt.Printf("[PROXY-agent] Dispatched: %s\n", msg)
 
-                _, _ = bsock.Send("PONG", 0)
-                fmt.Println("[PROXY-boss] Sent PONG")
+		// Inform the Boss, TODO: get response times from another channel
+		_, _ = bsock.Send("--pretend these are results--", 0)
+                fmt.Println("[PROXY-boss] Sent Message")
 
         }
 }

@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+go test -v ./...
 ./build.sh
 bin/proxy &
 bin/agent &
