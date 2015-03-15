@@ -4,6 +4,8 @@ go test -v ./...
 ./build.sh
 bin/proxy &
 bin/agent &
+bin/agent &
+bin/agent &
 sleep 1
 bin/boss
 sleep 2
