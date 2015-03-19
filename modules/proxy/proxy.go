@@ -1,22 +1,14 @@
-package main
+package proxy
 
 import (
 	"fmt"
 	zmq "github.com/pebbe/zmq4"
 )
 
-const defbossadd string = "tcp://*:11000"
-const defagentadd string = "tcp://*:20000"
-
-func main() {
-
-	fmt.Printf("[PROXY] Listening for Agents at '%s'\n", defagentadd)
-	fmt.Printf("[PROXY] Listening for Boss at '%s'\n", defbossadd)
-	Bind(defagentadd, defbossadd)
-}
-
 var asock *zmq.Socket
 var bsock *zmq.Socket
+
+var listening bool = true
 
 func Bind(agentadd string, bossadd string) {
 	asock, _ = zmq.NewSocket(zmq.PUB)
@@ -25,7 +17,7 @@ func Bind(agentadd string, bossadd string) {
 	bsock, _ := zmq.NewSocket(zmq.REP)
 	bsock.Bind(bossadd)
 
-	for {
+	for listening {
 		// Wait for a command from BOSS
 		fmt.Printf("[PROXY-boss] Receiving...\n")
 		msg, _ := bsock.Recv(0)
@@ -40,4 +32,8 @@ func Bind(agentadd string, bossadd string) {
 		fmt.Println("[PROXY-boss] Sent Message")
 
 	}
+}
+
+func Unbind() {
+	listening = false
 }

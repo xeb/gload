@@ -11,3 +11,4 @@ bin/boss
 sleep 2
 killall proxy
 killall agent
+echo Success

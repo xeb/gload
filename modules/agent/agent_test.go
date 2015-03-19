@@ -1,4 +1,4 @@
-package main
+package agent
 
 import (
 	"testing"
@@ -12,4 +12,3 @@ func TestExec(t *testing.T) {
 		t.Error("Output is empty for Exec(\"ls -la\")")
 	}
 }
-
