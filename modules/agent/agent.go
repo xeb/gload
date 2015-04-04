@@ -3,6 +3,7 @@ package agent
 import (
 	"fmt"
 	zmq "github.com/pebbe/zmq4"
+	"github.com/bradhe/stopwatch"
 	"os/exec"
 	"strings"
 )
@@ -27,24 +28,27 @@ func Subscribe(address string) {
 
 		fmt.Printf("[AGENT] Executing shell command\n")
 
-		stdout, e := Exec(r)
+		stdout, e, sw := Exec(r)
 
 		if e != nil {
 			fmt.Printf("[AGENT] Stderr was %s\n", e)
 		} else {
 			fmt.Printf("[AGENT] Stdout was %s\n", stdout)
 		}
+		
+		fmt.Printf("[AGENT] Duration was %dms\n", sw.Milliseconds())
 	}
 
 	fmt.Println("[AGENT] Unsubscribing")
 }
 
-func Exec(s string) (stdout string, e error) {
-
+func Exec(s string) (stdout string, e error, sw *stopwatch.StopWatch) {
+	start := stopwatch.Start()
 	parts := strings.Split(s, " ")
 	cmd := exec.Command(parts[0], strings.Join(parts[1:], " "))
 	b, e := cmd.Output()
 	stdout = string(b)
+	sw = stopwatch.Stop(start)
 	return
 }
 
