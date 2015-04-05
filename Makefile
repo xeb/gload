@@ -4,6 +4,7 @@ all: agent boss proxy
 prep: 
 	rm -rf $GOPATH/pkg
 	mkdir -p bin
+	go get ./...
 
 agent: prep
 	go build -o=./bin/agent agent/main.go
